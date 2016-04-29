@@ -14,7 +14,7 @@
     "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0-rc3-*",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc3-*",
     "Microsoft.AspNetCore.Mvc": "1.0.0-rc3-*",
-    "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0-*",
+    "Microsoft.AspNetCore.Hosting": "1.0.0-rc3-*",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-rc3-*",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0-rc3-*",
     "Microsoft.Extensions.Configuration": "1.0.0-rc3-*",
@@ -39,5 +39,8 @@
   },
   "scripts": {
     "postpublish": "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%"
+  },
+  "commands": {
+    "web": "Microsoft.AspNetCore.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000"
   }
 }
