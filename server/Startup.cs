@@ -21,23 +21,15 @@ namespace dayMonthSecond
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-            //     //  .SetBasePath(app.ApplicationBasePath)
                  .AddJsonFile("config.json")
-                 .AddJsonFile($"config.{env.EnvironmentName}.json");
-                //  .AddEnvironmentVariables();
-
-            // if (env.IsDevelopment()) {
-            //builder.AddUserSecrets();
-            // }
+                 .AddJsonFile($"config.{env.EnvironmentName}.json", optional:true);
 
             this.Configuration = builder.Build();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var settings = Configuration.GetSection("Auth0Settings");
-
-            services.Configure<Auth0Settings>(settings);
+            services.Configure<Auth0Settings>(Configuration.GetSection("Auth0Settings"));
 
             services.AddMvc();
         }
@@ -84,7 +76,8 @@ namespace dayMonthSecond
                             context.Request.Headers["Authorization"][0].Substring(context.Ticket.AuthenticationScheme.Length + 1)));
 
                         // OPTIONAL: you can read/modify the claims that are populated based on the JWT
-                        // claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, claimsIdentity.FindFirst("name").Value));
+                        //claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, claimsIdentity.FindFirst("name").Value));
+                        
                         return Task.FromResult(0);
                     },
 

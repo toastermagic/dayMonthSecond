@@ -10,7 +10,18 @@ var vendor = [
     "./node_modules/rxjs/bundles/Rx.js",
     "./node_modules/angular2/bundles/angular2.dev.js",
     "./node_modules/angular2/bundles/router.dev.js",
-    "node_modules/angular2/bundles/http.dev.js"
+    "./node_modules/angular2/bundles/http.dev.js",
+    "./node_modules/ng2-material/dist/font.css",
+    "./node_modules/ng2-material/dist/ng2-material.css",
+    "./node_modules/ng2-material/dist/ng2-material.js"
+];
+
+var copyOnly = [
+    "./node_modules/angular2-jwt/angular2-jwt.js",
+    "./node_modules/ng2-material/dist/MaterialIcons-Regular.eot",  
+    "./node_modules/ng2-material/dist/MaterialIcons-Regular.ttf",  
+    "./node_modules/ng2-material/dist/MaterialIcons-Regular.woff",  
+    "./node_modules/ng2-material/dist/MaterialIcons-Regular.woff2"  
 ];
 
 var tsProject = ts.createProject("app/tsconfig.json");
@@ -57,7 +68,8 @@ gulp.task("compile-ts", function () {
 });
 
 gulp.task("copyHtml", function () {
-    return gulp.src(["./app/index.html"]).pipe(gulp.dest("./wwwroot"));
+    gulp.src(["./index.html"], {cwd: "./app"}).pipe(gulp.dest("./wwwroot/"));
+    return gulp.src(["./app/**/*.html"]).pipe(gulp.dest("./wwwroot/app/"));
 });
 
 gulp.task("copyCss", function () {
@@ -71,7 +83,7 @@ gulp.task("injectVendor", ["compile-ts", "copyHtml"], function () {
         .pipe(gulp.dest("./wwwroot/vendor"));
 
     // copy only - do not inject
-    gulp.src("./node_modules/angular2-jwt/angular2-jwt.js")
+    gulp.src(copyOnly)
         .pipe(gulp.dest("./wwwroot/vendor"));
 
     return gulp.src("./wwwroot/index.html")

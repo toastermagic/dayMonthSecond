@@ -7,6 +7,7 @@ import {ROUTER_PROVIDERS} from "angular2/router";
 import {provide} from "angular2/core";
 import {HTTP_PROVIDERS} from "angular2/http";
 import {AUTH_PROVIDERS, AuthHttp} from "angular2-jwt";
+import {MATERIAL_DIRECTIVES, MATERIAL_PROVIDERS} from "ng2-material/all";
 
 import "rxjs/Rx";
 

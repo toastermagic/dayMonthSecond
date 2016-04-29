@@ -1,19 +1,25 @@
 import {Component} from "angular2/core";
 import {RouteConfig} from "angular2/router";
-import {ArbitraryComponent} from "../components/arbitrary.component";
+import {HomeComponent} from "../components/home.component";
+import {LoginComponent} from "../components/login.component";
 
 @Component({
     selector: "my-app",
-    template: `<h3>Angular 2, with Auth0 via VSCode & dotnetcli</h3>
-    
-    <arbitrary-component>`,
-    directives: [ArbitraryComponent]
+    templateUrl: "./app/components/app.component.html",
+    directives: [LoginComponent, HomeComponent]
 })
 
 @RouteConfig([
-  {path:"/", name: "Home", component: ArbitraryComponent}
+    { path: "/app/index.html", name: "Home", component: HomeComponent }
 ])
 
 export class AppComponent {
-    // constructor() { }
+
+    constructor() {
+
+    }
+
+    clicked(message: string) {
+        alert(message);
+    }
 }
