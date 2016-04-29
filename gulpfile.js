@@ -26,9 +26,9 @@ gulp.task("credentials", ["compile-ts"], function () {
     var creds = require("./config.json");
     try {
         creds = require("./config.Production.json");
-        console.log("using prod credentials - auth0 should work")
+        console.log("using prod credentials - auth0 should work");
     } catch (error) {
-        console.log("using dev credentials - auth0 will not work")
+        console.log("using dev credentials - auth0 will not work");
     }
 
     return gulp.src(["./wwwroot/app/services/auth.service.js"])
