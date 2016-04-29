@@ -3,10 +3,7 @@ import {AuthService} from "../services/auth.service";
 
 @Component({
     selector: "login-component",
-    template: `
-    <button *ngIf="!auth.authenticated()" (click)="auth.login()">Login</button>
-    <button *ngIf="auth.authenticated()" (click)="auth.logout()">Logout</button>
-    `,
+    templateUrl: "./app/components/login.component.html",
     providers: [AuthService],
 })
 
