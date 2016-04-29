@@ -1,0 +1,7 @@
+.vscode
+bin
+node_modules
+obj
+wwwroot
+project.lock.json
+config.Production.json

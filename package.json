@@ -1,0 +1,30 @@
+{
+  "name": "day-month-second",
+  "version": "1.0.0",
+  "license": "ISC",
+  "dependencies": {
+    "angular2": "^2.0.0-beta.16",
+    "angular2-jwt": "^0.1.12",
+    "es6-shim": "^0.35.0",
+    "ng2-toastr": "^0.1.10",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "systemjs": "0.19.26",
+    "zone.js": "0.6.10"
+  },
+  "devDependencies": {
+    "connect": "^3.4.1",
+    "gulp": "^3.9.1",
+    "gulp-dnx": "^0.3.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-run-sequence": "^0.3.2",
+    "gulp-shell": "^0.5.2",
+    "gulp-sourcemaps": "^2.0.0-alpha",
+    "gulp-typescript": "^2.13.0",
+    "http": "0.0.0",
+    "open": "0.0.5",
+    "serve-static": "^1.10.2",
+    "typescript": "^1.8.10",
+    "typings": "^0.7.12"
+  }
+}
