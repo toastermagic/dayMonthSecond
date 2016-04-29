@@ -19,6 +19,6 @@ namespace dayMonthSecond
         [HttpGet]
         [Authorize(ActiveAuthenticationSchemes = "Bearer")]
         public IActionResult Things() => 
-            new ObjectResult(new string[] {"So this is 2 things now?"});
+            new ObjectResult(new string[] {"JWT Bearer token is OK"});
     }
 }

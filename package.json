@@ -16,6 +16,7 @@
     "connect": "^3.4.1",
     "gulp": "^3.9.1",
     "gulp-dnx": "^0.3.0",
+    "gulp-inject": "^4.0.0",
     "gulp-replace": "^0.5.4",
     "gulp-run-sequence": "^0.3.2",
     "gulp-shell": "^0.5.2",

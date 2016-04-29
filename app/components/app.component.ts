@@ -1,4 +1,5 @@
 import {Component} from "angular2/core";
+import {RouteConfig} from "angular2/router";
 import {ArbitraryComponent} from "../components/arbitrary.component";
 
 @Component({
@@ -8,6 +9,10 @@ import {ArbitraryComponent} from "../components/arbitrary.component";
     <arbitrary-component>`,
     directives: [ArbitraryComponent]
 })
+
+@RouteConfig([
+  {path:"/", name: "Home", component: ArbitraryComponent}
+])
 
 export class AppComponent {
     // constructor() { }
