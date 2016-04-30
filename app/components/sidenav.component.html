@@ -1,0 +1,32 @@
+<div layout="column" style="height:500px;">
+    <md-sidenav-container layout="row" flex>
+        <md-sidenav name="left" [style]="hasMedia('gt-sm') ? 'side' : 'over'">
+            <md-toolbar class="md-theme-indigo">
+                <h1 class="md-toolbar-tools">Sidenav Left</h1>
+            </md-toolbar>
+            <md-content layout-padding>
+                <button md-raised-button (click)="close('left')" class="md-primary" hide-gt-md>
+                    Close Sidenav Left
+                </button>
+                <md-list>
+                    <md-subheader class="md-no-sticky">things</md-subheader>
+                    <md-list-item class="md-2-line">
+                        <md-icon class="material-icons">watch_later</md-icon>
+                        <div class="md-list-item-text" style="margin-left:10px;">
+                            <h3>Some text</h3>
+                            <p>Secondary text</p>
+                        </div>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                    <md-list-item class="md-2-line">
+                        <md-icon class="material-icons">view_headline</md-icon>
+                        <div class="md-list-item-text" style="margin-left:10px;">
+                            <h3>Some text</h3>
+                            <p>Secondary text</p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </md-sidenav>
+    </md-sidenav-container>
+</div>
