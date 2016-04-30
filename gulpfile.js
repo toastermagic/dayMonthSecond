@@ -8,16 +8,17 @@ var vendor = [
     "./node_modules/angular2/bundles/angular2-polyfills.js",
     "./node_modules/systemjs/dist/system.src.js",
     "./node_modules/rxjs/bundles/Rx.js",
+    "./node_modules/es6-promise/dist/es6-promise.js",
     "./node_modules/angular2/bundles/angular2.dev.js",
     "./node_modules/angular2/bundles/router.dev.js",
     "./node_modules/angular2/bundles/http.dev.js",
     "./node_modules/ng2-material/dist/font.css",
-    "./node_modules/ng2-material/dist/ng2-material.css",
-    "./node_modules/ng2-material/dist/ng2-material.js"
+    "./node_modules/ng2-material/dist/ng2-material.css"
 ];
 
 var copyOnly = [
     "./node_modules/angular2-jwt/angular2-jwt.js",
+    "./node_modules/ng2-material/dist/ng2-material.js",
     "./node_modules/ng2-material/dist/MaterialIcons-Regular.eot",  
     "./node_modules/ng2-material/dist/MaterialIcons-Regular.ttf",  
     "./node_modules/ng2-material/dist/MaterialIcons-Regular.woff",  
@@ -26,11 +27,13 @@ var copyOnly = [
 
 var tsProject = ts.createProject("app/tsconfig.json");
 
-gulp.task("watch", ["build:client", "build:dotnet", "copyHtml"], function () {
-    gulp.watch("./app/**/*.html", ["copyHtml"]);
-    gulp.watch("./app/**/*.ts", ["build:client"]);
-    gulp.watch("./server/**/*.cs", ["build:dotnet"]);
+gulp.task("watch:client", ["build:client"], function () {
+    gulp.watch("./app/**/*.css", ["copyCss"]);
+    gulp.watch("./app/**/*.html", ["copyHtml", "injectVendor"]);
+    gulp.watch("./app/**/*.ts", ["compile-ts", "credentials"]);
 });
+
+gulp.task("build:client", ["copyHtml", "copyCss", "credentials", "injectVendor"]);
 
 gulp.task("credentials", ["compile-ts"], function () {
     var replace = require("gulp-replace");
@@ -46,13 +49,6 @@ gulp.task("credentials", ["compile-ts"], function () {
         .pipe(replace("auth0clientId", creds.Auth0Settings.ClientId))
         .pipe(replace("auth0domain", creds.Auth0Settings.Domain))
         .pipe(gulp.dest("wwwroot/app/services"));
-});
-
-gulp.task("build:client", ["compile-ts", "copyHtml", "copyCss", "credentials", "injectVendor"]);
-
-gulp.task("build:dotnet", function () {
-    var shell = require("gulp-shell");
-    return shell.task(["dotnet build"]);
 });
 
 gulp.task("compile-ts", function () {
@@ -76,7 +72,7 @@ gulp.task("copyCss", function () {
     return gulp.src(["./app/css/*.css"]).pipe(gulp.dest("./wwwroot/css"));
 });
 
-gulp.task("injectVendor", ["compile-ts", "copyHtml"], function () {
+gulp.task("injectVendor", ["copyHtml"], function () {
     var inject = require("gulp-inject");
     
     var vendorStream = gulp.src(vendor)
