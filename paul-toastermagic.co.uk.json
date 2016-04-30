@@ -1,0 +1,20 @@
+{
+    "email": "paul@toastermagic.co.uk",
+    "email_verified": true,
+    "clientID": "0DkTCPKzFbJPEow18W1eT2yzT3VtJJTw",
+    "updated_at": "2016-04-30T02:41:03.799Z",
+    "picture": "https://s.gravatar.com/avatar/6e9b4dc29be049da3d598d5765fb30e5?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fpa.png",
+    "user_id": "auth0|5723aee0c365fbe168e795e1",
+    "name": "paul@toastermagic.co.uk",
+    "nickname": "paul",
+    "identities": [
+        {
+            "user_id": "5723aee0c365fbe168e795e1",
+            "provider": "auth0",
+            "connection": "Username-Password-Authentication",
+            "isSocial": false
+        }
+    ],
+    "created_at": "2016-04-29T18:58:40.925Z",
+    "global_client_id": "Sslz2wLiu1W1OAtajHDIv1xXag3OJwHe"
+}

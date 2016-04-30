@@ -1,29 +1,32 @@
-import {Component, ElementRef, Input} from "angular2/core";
+import {Component, ElementRef, Injectable, Input} from "angular2/core";
 import {MATERIAL_DIRECTIVES, MdDialog, MdDialogConfig, MdDialogRef} from "ng2-material/all";
 import {OnInit} from "angular2/core";
 import {DOM} from "angular2/src/platform/dom/dom_adapter";
 
+@Component({
+    selector: "dialog-settings",
+    directives: [MATERIAL_DIRECTIVES],
+    providers: [ElementRef]
+})
+@Injectable()
 export class SettingsComponent implements OnInit {
 
     status: string;
 
     constructor(public dialog: MdDialog) {
-        console.log(`settings component constructed`, dialog);
     }
 
     ngOnInit() {
         console.log(`settings component initialised`);
     }
 
-    public show(ev: Event) {
+    public show(ev: Event, el: ElementRef) {
         let config = new CustomDialogConfig()
             .fruit("Mango")
-            .clickOutsideToClose(false)
+            .clickOutsideToClose(true)
             .targetEvent(ev);
 
-        let jeff = new MdDialogRef();
-
-        this.dialog.open(DialogCustom, null, config)
+        this.dialog.open(DialogCustom, el, config)
             .then((ref: MdDialogRef) => {
                 ref.whenClosed.then((interesting) => {
                     if (interesting) {
@@ -44,9 +47,9 @@ class CustomDialogConfig extends MdDialogConfig {
 }
 
 @Component({
-  selector: "dialog-custom",
-  templateUrl: "settings.component.html",
-  directives: [MATERIAL_DIRECTIVES]
+    selector: "dialog-custom",
+    templateUrl: "./app/components/settings.component.html",
+    directives: [MATERIAL_DIRECTIVES]
 })
 class DialogCustom {
     @Input() fruit: string;

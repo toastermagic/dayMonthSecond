@@ -5,3 +5,5 @@ obj
 wwwroot
 project.lock.json
 config.Production.json
+npm-debug.log
+toastermagic.json

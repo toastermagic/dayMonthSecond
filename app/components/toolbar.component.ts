@@ -1,4 +1,4 @@
-import {Component} from "angular2/core";
+import {Component, ElementRef} from "angular2/core";
 import {AuthService} from "../services/auth.service";
 import {SettingsComponent} from "../components/settings.component";
 import {MATERIAL_DIRECTIVES, MdDialog, MdDialogConfig, MdDialogRef} from "ng2-material/all";
@@ -6,16 +6,16 @@ import {MATERIAL_DIRECTIVES, MdDialog, MdDialogConfig, MdDialogRef} from "ng2-ma
 @Component({
     selector: "toolbar",
     templateUrl: "./app/components/toolbar.component.html",
-    providers: [AuthService, SettingsComponent]
+    providers: [AuthService, ElementRef, SettingsComponent]
 })
 
 export class ToolbarComponent {
 
-    constructor(public auth: AuthService, public settings: SettingsComponent) {
+    constructor(public auth: AuthService, public settings: SettingsComponent, public element: ElementRef) {
     }
 
     onSettings(ev: Event) {
-        this.settings.show(ev);
+        this.settings.show(ev, this.element);
     }
 
     clicked(message: string) {
