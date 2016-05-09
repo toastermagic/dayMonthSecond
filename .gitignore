@@ -1,0 +1,16 @@
+.vscode
+bin
+bower_components
+node_modules
+obj
+wwwroot
+project.lock.json
+config.Production.json
+npm-debug.log
+toastermagic.json
+paul-toastermagic.co.uk.json
+.tmp
+typings
+dist
+tmp
+config/auth0.prod.json

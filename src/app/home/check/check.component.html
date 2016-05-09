@@ -1,0 +1,19 @@
+<md-card>
+    <md-card-subtitle>Check response</md-card-subtitle>
+    <md-card-title>JWT Token Test</md-card-title>
+    <md-card-content>
+        <p>Authenticate using JWT</p>
+        <span *ngIf="resultTime">{{ resultTime | date:'HH:mm:ss' }}</span>
+        <span *ngIf="failMessage">
+            {{ failMessage }}
+            <md-icon class="fail-icon">close</md-icon>
+        </span>
+        <span *ngIf="userId">
+            {{ userId }}
+            <md-icon class="success-icon">done</md-icon>
+        </span>
+    </md-card-content>
+    <md-card-actions>
+        <button md-raised-button [disabled]="!checkEnabled" (click)="checkServer()" class="btn btn-success-outline">Check Token</button>
+    </md-card-actions>
+</md-card>

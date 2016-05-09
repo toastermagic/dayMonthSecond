@@ -1,0 +1,5 @@
+{
+    "ClientId": "{clientId}",
+    "Domain": "{domain}",
+    "ClientSecret": "{clientSecret}"
+}

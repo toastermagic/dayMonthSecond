@@ -1,0 +1,8 @@
+<div class="dms-app">
+  <div class="mainFrame">
+    <dms-sidebar [(toggleSidebar)]="sidebarState">
+      <dms-toolbar (openSidebar)="onOpenSidebar($event)"></dms-toolbar>
+      <router-outlet></router-outlet>
+    </dms-sidebar>
+  </div>
+</div>

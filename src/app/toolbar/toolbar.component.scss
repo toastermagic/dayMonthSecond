@@ -1,0 +1,25 @@
+md-toolbar {
+  .md-toolbar-layout {
+    width: 100%;
+  }
+
+  md-icon-button {
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .toolbar-icon {
+    padding: 0 14px 0 14px;
+  }
+
+  .fill-remaining {
+    flex: auto;
+  }
+  
+  dms-logged-in {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin-left: 10px;
+  }
+}
