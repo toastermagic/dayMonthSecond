@@ -1,0 +1,5 @@
+{
+  "ambientDependencies": {
+    "auth0": "registry:dt/auth0#0.0.0+20160316155526"
+  }
+}
