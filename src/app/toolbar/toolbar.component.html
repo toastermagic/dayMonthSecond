@@ -3,7 +3,7 @@
 
   <a [routerLink]="['home']">dms-rc0</a>
 
-  <span class="fill-remaining"></span>
+  <span style="flex: auto;"></span>
 
   <span *ngIf="auth.authenticated() && auth.user">{{ auth.user.nickname }}</span>
   <button class="md-primary" *ngIf="!auth.authenticated()" md-raised-button (click)="extLogin('Google')">Log In</button>

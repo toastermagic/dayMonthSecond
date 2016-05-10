@@ -12,28 +12,36 @@ import {MdIcon} from '@angular2-material/icon';
 })
 export class JobListComponent implements OnInit {
   items: FirebaseListObservable<any[]>;
+
   constructor(private af: AngularFire) {
-    this.items = af.database.list('/item');
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    // this.af.auth.subscribe((data) => {
+    //   if (data) {
+    //     console.log('angularFire has auth data', data);
+    //     this.items = this.af.database.list('/item');
+    //   } else {
+    //     console.log('angularFire has no auth data', data);
+    //   }
+    // });
+  }
 
   addItem() {
     let id = this.generateUUID();
-    
     const itemObservable = this.af.database.object('/item/' + id);
-    itemObservable.set({ name: 'new name!', date: new Date()});
+    itemObservable.set({ name: 'new name!', date: new Date() });
   }
-  
-  private generateUUID(){
+
+  private generateUUID() {
     var d = new Date().getTime();
-    if(window.performance && typeof window.performance.now === "function"){
-        d += performance.now(); //use high-precision timer if available
+    if (window.performance && typeof window.performance.now === 'function') {
+      d += performance.now(); // use high-precision timer if available
     }
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = (d + Math.random()*16)%16 | 0;
-        d = Math.floor(d/16);
-        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+      return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
     return uuid;
   }

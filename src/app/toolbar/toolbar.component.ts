@@ -1,13 +1,13 @@
 import {Output, EventEmitter, ApplicationRef, ChangeDetectorRef,
    Component, OnInit, OnDestroy} from '@angular/core';
-import {AuthService, ExternalLoginService} from '../shared';
+import {AuthService, FirebaseAuthService} from '../shared';
 import {Subscription} from 'rxjs/Subscription';
 import {MdButton, MdAnchor} from '@angular2-material/button';
 import {MdIcon} from '@angular2-material/icon';
 import {MdToolbar} from '@angular2-material/toolbar';
 import {LoggedInComponent} from './shared/logged-in';
 import {Response} from '@angular/http';
-
+import {FirebaseAuthState} from 'angularfire2';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
@@ -25,7 +25,7 @@ export class ToolbarComponent implements OnInit,
   @Output() openSidebar = new EventEmitter<boolean>();
   
   constructor(private auth: AuthService, private appRef: ApplicationRef,
-              private cd: ChangeDetectorRef, private extAuth: ExternalLoginService) {
+              private cd: ChangeDetectorRef, private fbAuth: FirebaseAuthService) {
     this.userSubscription = auth.userChange$.subscribe(user => {
       console.log('toolbar: user is now', user);
       cd.detectChanges();
@@ -33,8 +33,10 @@ export class ToolbarComponent implements OnInit,
   }
 
   extLogin(provider: string) {
-    this.extAuth.login(provider).subscribe(
-      (res: Response) => { },
+    this.fbAuth.signInWithGoogle();
+
+    this.fbAuth.auth$.subscribe(
+      (res: FirebaseAuthState) => { },
       (err) => { console.log(err); }
     )
   }

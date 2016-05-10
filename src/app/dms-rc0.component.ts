@@ -1,4 +1,4 @@
-import {Output, EventEmitter, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HomeComponent} from './home';
 import {DashboardComponent} from './dashboard';
 import {ToolbarComponent} from './toolbar';

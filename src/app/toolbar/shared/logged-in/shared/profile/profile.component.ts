@@ -1,5 +1,5 @@
 import {Input, Component} from '@angular/core';
-import {ValuesPipe, AuthService, Auth0profile, Auth0identity} from '../../../../../shared';
+import {AuthService} from '../../../../../shared';
 import {MdCard} from '@angular2-material/card';
 import {MdIcon} from '@angular2-material/icon';
 import {MdList} from '@angular2-material/list';
@@ -10,7 +10,7 @@ import {MdList} from '@angular2-material/list';
   template: require<string>('./profile.component.html'),
   styles: [require<string>('./profile.component.scss')],
   directives: [MdCard, MdIcon, MdList],
-  pipes: [ValuesPipe]
+  pipes: []
 })
 
 export class ProfileComponent {

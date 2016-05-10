@@ -12,6 +12,10 @@ interface GlobalEnvironment {
 
 interface Global extends GlobalEnvironment  {}
 
+interface dmsProfile extends Auth0UserProfile {
+  firebase_token: string;
+}
+
 declare var require: {
     <T>(path: string): T;
     (paths: string[], callback: (...modules: any[]) => void): void;

@@ -2,7 +2,6 @@ import {Injectable, NgZone} from '@angular/core';
 import {Router} from '@angular/router';
 import {tokenNotExpired} from 'angular2-jwt';
 import {Subject} from 'rxjs/Subject';
-import {Auth0identity, Auth0profile} from '../models';
 
 const Auth0Lock: any = require('auth0-lock');
 
@@ -10,10 +9,10 @@ const Auth0Lock: any = require('auth0-lock');
 export class AuthService {
   lock = new Auth0Lock(AUTH0_CLIENTID, AUTH0_DOMAIN);
   refreshSubscription: any;
-  user: Auth0profile;
+  user: dmsProfile;
   zoneImpl: NgZone;
 
-  userSource = new Subject<Auth0profile>();
+  userSource = new Subject<dmsProfile>();
   userChange$ = this.userSource.asObservable();
 
   constructor(zone: NgZone, private router: Router) {
@@ -36,22 +35,37 @@ export class AuthService {
   }
 
   public login() {
-    // Show the Auth0 Lock widget
+
     this.lock.show({
       disableSignupAction: true
-    }, (err, profile, token) => {
-      if (err) {
-        alert(err);
-        return;
-      }
-      // If authentication is successful, save the items
-      // in local storage
-      localStorage.setItem('profile', JSON.stringify(profile));
-      localStorage.setItem('id_token', token);
+    }, (err: Auth0Error,
+      profile: dmsProfile,
+      auth0token: string) => {
+        this.lock.getProfile(auth0token, (err2: Auth0Error, profile2: dmsProfile) => {
+          if (err || !profile2) {
+            console.log('auth0 authorisation failed', err);
+          }
 
-      this.userSource.next(profile);
-      this.user = profile;
-    });
+          this.lock.getClient().getDelegationToken({
+            target: '0DkTCPKzFbJPEow18W1eT2yzT3VtJJTw',
+            id_token: auth0token,
+            api_type: 'firebase' },
+            (fbErr: Auth0Error, fbToken: Auth0DelegationToken) => {
+              if (fbErr) {
+                console.error('Could not get delegation token from auth0', fbErr);
+                return;
+              }
+
+              profile2.firebase_token = fbToken.id_token;
+              localStorage.setItem('profile', JSON.stringify(profile2));
+              localStorage.setItem('id_token', auth0token);
+              localStorage.setItem('firebase_token', fbToken.id_token);
+
+              this.userSource.next(profile2);
+              this.user = profile2;
+            });
+        });
+      });
   }
 
   public logout() {
