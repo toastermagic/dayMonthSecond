@@ -1,5 +1,6 @@
 {
   "ambientDependencies": {
-    "auth0": "registry:dt/auth0#0.0.0+20160316155526"
+    "auth0": "registry:dt/auth0#0.0.0+20160316155526",
+    "firebase": "registry:dt/firebase#2.4.1+20160412125105"
   }
 }
