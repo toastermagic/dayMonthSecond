@@ -13,9 +13,9 @@ interface GlobalEnvironment {
 interface Global extends GlobalEnvironment  {}
 
 interface dmsProfile extends Auth0UserProfile {
-  authid_token: string;
-  firebase_token: string;
-  firebase_auth: any;
+  authid_token?: string;
+  firebase_token?: Auth0DelegationToken;
+  firebase_auth?: any;
 }
 
 declare var require: {
@@ -23,4 +23,3 @@ declare var require: {
     (paths: string[], callback: (...modules: any[]) => void): void;
     ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void;
 };
-
