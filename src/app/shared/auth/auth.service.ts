@@ -13,6 +13,8 @@ export class AuthService {
   user: dmsProfile;
   zoneImpl: NgZone;
 
+  private fbAuthState: FirebaseAuthData | FirebaseAuthState;
+
   userSource = new Subject<dmsProfile>(null);
   userChange$ = this.userSource.asObservable();
 
@@ -28,6 +30,11 @@ export class AuthService {
     this.userSource.next(this.user);
 
     console.log(`Found local user profile for ${this.user.nickname}`);
+
+    af.auth.subscribe((state: FirebaseAuthState) => {
+      this.fbAuthState = state;
+      console.log('fbAuthState', state);
+    });
   }
 
   public authenticated() {
@@ -49,7 +56,7 @@ export class AuthService {
           .subscribe(
             (prof: dmsProfile) => {
               localStorage.setItem('profile', JSON.stringify(prof));
-              this.user = prof;
+              // this.user = prof;
               this.userSource.next(prof);
             },
             (delegationErr: any) => { console.error(`delegation fail ${delegationErr}`); },
@@ -71,6 +78,7 @@ export class AuthService {
   }
 
   private getDelegationToken(profile: dmsProfile): Observable<dmsProfile> {
+    console.log('never called :(');
     return new Observable<dmsProfile>((sub: Subscriber<dmsProfile>) => {
       this.lock.getClient().getDelegationToken({
         target: '0DkTCPKzFbJPEow18W1eT2yzT3VtJJTw',
