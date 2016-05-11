@@ -24,17 +24,17 @@ export class JobListComponent implements OnInit {
         // logged out, should route change to home
         return;
       }
-      this.getJobs();
+      this.getJobs(profile);
     });
   }
 
-  getJobs() {
+  getJobs(profile: dmsProfile) {
     if (!this.auth.authenticated) {
       console.log('cannot fetch jobs without authentication');
       return;
     }
 
-    let user = this.af.database.object('/user/' + this.auth.user.user_id);
+    let user = this.af.database.object('/user/' + profile.user_id);
     user.subscribe(u => console.log('fbuser', u));
   }
 
