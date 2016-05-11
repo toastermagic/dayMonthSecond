@@ -25,7 +25,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
               private cd: ChangeDetectorRef) {
     this.userSubscription = auth.userChange$.subscribe(user => {
       console.log('toolbar: user is now', user);
-      cd.detectChanges();
     });
   }
 
