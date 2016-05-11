@@ -30,11 +30,16 @@ export class JobListComponent implements OnInit {
 
   getJobs(profile: dmsProfile) {
     if (!this.auth.authenticated) {
-      console.log('cannot fetch jobs without authentication');
+      console.log('cannot fetch jobs without auth0 authentication');
       return;
     }
 
-    let user = this.af.database.object('/user/' + profile.user_id);
+    if (!this.af.auth) {
+      console.log('cannot fetch jobs without firebase authentication');
+      return;
+    }
+
+    let user = this.af.database.object('/users/' + profile.user_id);
     user.subscribe(u => console.log('fbuser', u));
   }
 
