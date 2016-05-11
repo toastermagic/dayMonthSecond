@@ -6,7 +6,6 @@
   <span style="flex: auto;"></span>
 
   <span *ngIf="auth.authenticated() && auth.user">{{ auth.user.nickname }}</span>
-  <button class="md-primary" *ngIf="!auth.authenticated()" md-raised-button (click)="extLogin('Google')">Log In</button>
   <button md-raised-button (click)="auth.login()" *ngIf="!auth.authenticated()">Log In</button>
   <dms-logged-in *ngIf="auth.authenticated()" [user]="auth.user"></dms-logged-in>
 </md-toolbar>

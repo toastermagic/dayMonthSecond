@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdIcon} from '@angular2-material/icon';
+import {AuthService} from '../../shared';
 
 @Component({
   moduleId: 'app/home/job-list/',
@@ -13,23 +14,38 @@ import {MdIcon} from '@angular2-material/icon';
 export class JobListComponent implements OnInit {
   items: FirebaseListObservable<any[]>;
 
-  constructor(private af: AngularFire) {
-  }
+  connectedMessage: string = 'Unknown';
+
+  constructor(private af: AngularFire, private auth: AuthService) {}
 
   ngOnInit() {
-    // this.af.auth.subscribe((data) => {
-    //   if (data) {
-    //     console.log('angularFire has auth data', data);
-    //     this.items = this.af.database.list('/item');
-    //   } else {
-    //     console.log('angularFire has no auth data', data);
-    //   }
-    // });
+    this.auth.userChange$.subscribe((profile: dmsProfile) => {
+      if (!profile) {
+        // logged out, should route change to home
+        return;
+      }
+      this.getJobs();
+    });
+  }
+
+  getJobs() {
+    if (!this.auth.authenticated) {
+      console.log('cannot fetch jobs without authentication');
+      return;
+    }
+
+    let user = this.af.database.object('/user/' + this.auth.user.user_id);
+    user.subscribe(u => console.log('fbuser', u));
   }
 
   addItem() {
     let id = this.generateUUID();
     const itemObservable = this.af.database.object('/item/' + id);
+    itemObservable.set({ name: 'new name!', date: new Date() });
+  }
+
+  login() {
+    const itemObservable = this.af.database.object('/user/' + this.auth.user.user_id);
     itemObservable.set({ name: 'new name!', date: new Date() });
   }
 

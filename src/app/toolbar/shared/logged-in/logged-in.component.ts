@@ -1,5 +1,5 @@
 import { Input, Component, OnInit } from '@angular/core';
-import {Auth0identity,Auth0profile, AuthService} from '../../../shared';
+import {AuthService} from '../../../shared';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 import {MdButton, MdAnchor} from '@angular2-material/button';
 import {MdIcon} from '@angular2-material/icon';
@@ -15,7 +15,7 @@ import {ProfileComponent} from './shared/profile';
 export class LoggedInComponent implements OnInit {
 
   @Input()
-  user: Auth0profile;
+  user: dmsProfile;
 
   constructor(private auth: AuthService) {}
 

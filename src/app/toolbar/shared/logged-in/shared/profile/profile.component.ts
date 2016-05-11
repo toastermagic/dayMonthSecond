@@ -15,7 +15,7 @@ import {MdList} from '@angular2-material/list';
 
 export class ProfileComponent {
   @Input()
-  user: Auth0profile = null;
+  user: dmsProfile;
   public userProperties: any[];
 
   constructor(private auth: AuthService) {
