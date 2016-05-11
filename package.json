@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "tslint \"src/**/*.ts\"",
     "format": "clang-format -i -style=file --glob=src/**/*.ts",
-    "build": "gulp cleanRoot && webpack --config config/webpack.prod.js",
+    "build": "del wwwroot && webpack --config config/webpack.prod.js",
     "start": "webpack-dev-server --config config/webpack.dev.js --inline",
     "typings": "typings",
     "postinstall": "typings install"
