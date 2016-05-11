@@ -10,12 +10,10 @@ const Auth0Lock: any = require('auth0-lock');
 export class AuthService {
   lock = new Auth0Lock(AUTH0_CLIENTID, AUTH0_DOMAIN);
   refreshSubscription: any;
-  user: dmsProfile;
   zoneImpl: NgZone;
 
-  private fbAuthState: FirebaseAuthData | FirebaseAuthState;
+  userSource = new BehaviorSubject<dmsProfile>(null);
 
-  userSource = new Subject<dmsProfile>(null);
   userChange$ = this.userSource.asObservable();
 
   constructor(zone: NgZone, private router: Router, private af: AngularFire) {
@@ -26,20 +24,20 @@ export class AuthService {
       console.log('No local user profile');
       return;
     }
-    this.user = JSON.parse(localStorage.getItem('profile'));
-    this.userSource.next(this.user);
 
-    console.log(`Found local user profile for ${this.user.nickname}`);
+    let user = JSON.parse(localStorage.getItem('profile'));
+    this.userSource.next(user);
 
-    af.auth.subscribe((state: FirebaseAuthState) => {
-      this.fbAuthState = state;
-      console.log('fbAuthState', state);
-    });
+    console.log(`Found local user profile for ${user.nickname}`);
   }
 
   public authenticated() {
     // Check if there's an unexpired JWT
     return tokenNotExpired();
+  }
+
+  get user(): dmsProfile {
+    return this.userSource.getValue();
   }
 
   public login() {
@@ -51,19 +49,27 @@ export class AuthService {
       if (!err) {
         this
           .getProfile(auth0token)
-          .concat(this.getDelegationToken)
-          .concat(this.firebaseLogin)
+          .flatMap((prof) => {
+            return this.getDelegationToken(prof);
+          })
+          .flatMap((prof) => {
+            return this.firebaseLogin(prof);
+          })
           .subscribe(
-            (prof: dmsProfile) => {
-              localStorage.setItem('profile', JSON.stringify(prof));
-              // this.user = prof;
-              this.userSource.next(prof);
-            },
-            (delegationErr: any) => { console.error(`delegation fail ${delegationErr}`); },
-            () => { console.log('login complete'); }
-            );
+          (prof: dmsProfile) => {
+            console.log('profile returned', prof);
+            localStorage.setItem('profile', JSON.stringify(prof));
+            this.userSource.next(prof);
+          },
+          (error: any) => this.loginFail(error),
+          () => { console.log('login complete'); });
       }
     });
+  }
+
+  private loginFail(error: any) {
+    console.log(`login failure ${error}`);
+    this.logout();
   }
 
   private getProfile(token: string): Observable<dmsProfile> {
@@ -72,13 +78,13 @@ export class AuthService {
         if (err || !profile) {
           sub.error(`auth0 could not get profile: ${err}`);
         }
+        profile.authid_token = token;
         sub.next(profile);
       });
     });
   }
 
   private getDelegationToken(profile: dmsProfile): Observable<dmsProfile> {
-    console.log('never called :(');
     return new Observable<dmsProfile>((sub: Subscriber<dmsProfile>) => {
       this.lock.getClient().getDelegationToken({
         target: '0DkTCPKzFbJPEow18W1eT2yzT3VtJJTw',
@@ -89,7 +95,7 @@ export class AuthService {
           if (fbErr) {
             sub.error(`Could not get delegation token from auth0: ${fbErr}`)
           }
-          profile.firebase_token = JSON.stringify(fbToken);
+          profile.firebase_token = fbToken;
           sub.next(profile);
         });
     });
@@ -97,7 +103,7 @@ export class AuthService {
 
   private firebaseLogin(profile: dmsProfile): Observable<dmsProfile> {
     return new Observable<dmsProfile>((sub: Subscriber<dmsProfile>) => {
-      this.af.auth.login({ token: profile.firebase_token },
+      this.af.auth.login({ token: profile.firebase_token.id_token },
         {
           provider: AuthProviders.Custom,
           method: AuthMethods.CustomToken
@@ -118,6 +124,5 @@ export class AuthService {
     this.userSource.next(null);
     this.af.auth.logout();
     this.router.navigate(['/home']);
-    this.user = null;
   }
 }
