@@ -1,15 +1,14 @@
 <md-card>
-  <md-card-subtitle>firebase connectivity</md-card-subtitle>
-  <md-card-title>{{ connectedMessage }}</md-card-title>
+  <md-card-subtitle>connecting to firebase</md-card-subtitle>
+  <md-card-title *ngIf="user">{{ user.name }}</md-card-title>
   <md-card-content>
-    <ul *ngFor="let item of items | async">
+    <ul *ngFor="let item of jobs | async">
       <li class="text">
-        {{item.name}}
+        {{ item.name }}
       </li>
     </ul>
   </md-card-content>
   <md-card-actions>
-    <button md-raised-button (click)="login()" class="btn btn-success-outline">Login</button>
     <button md-raised-button (click)="addItem()" class="btn btn-success-outline">Add</button>
   </md-card-actions>
 </md-card>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdIcon} from '@angular2-material/icon';
-import {AuthService} from '../../shared';
+import {AuthService, UUIDService} from '../../shared';
+import {Observable} from 'rxjs';
 
 @Component({
   moduleId: 'app/home/job-list/',
@@ -12,11 +13,13 @@ import {AuthService} from '../../shared';
   directives: [MdIcon, MD_CARD_DIRECTIVES]
 })
 export class JobListComponent implements OnInit {
-  items: FirebaseListObservable<any[]>;
+  jobs: FirebaseListObservable<any[]>;
+  user: FirebaseObjectObservable<any>;
 
   connectedMessage: string = 'Unknown';
-
-  constructor(private af: AngularFire, private auth: AuthService) {}
+  private _url: string;
+  
+  constructor(private af: AngularFire, private auth: AuthService, private uuid: UUIDService) { }
 
   ngOnInit() {
     this.auth.userChange$.subscribe((profile: dmsProfile) => {
@@ -24,11 +27,13 @@ export class JobListComponent implements OnInit {
         // logged out, should route change to home
         return;
       }
-      this.getJobs(profile);
+      this._url = '/users/' + profile.user_id;
+      this.getUser(this._url);
+      this.jobs = this.af.database.list(this._url + '/jobs/');
     });
   }
 
-  getJobs(profile: dmsProfile) {
+  getUser(url: string) {
     if (!this.auth.authenticated) {
       console.log('cannot fetch jobs without auth0 authentication');
       return;
@@ -39,31 +44,15 @@ export class JobListComponent implements OnInit {
       return;
     }
 
-    let user = this.af.database.object('/users/' + profile.user_id);
-    user.subscribe(u => console.log('fbuser', u));
+    this.af.database.object(url)
+      .subscribe((user) => {
+        this.user = user;
+      });
   }
 
   addItem() {
-    let id = this.generateUUID();
-    const itemObservable = this.af.database.object('/item/' + id);
-    itemObservable.set({ name: 'new name!', date: new Date() });
-  }
-
-  login() {
-    const itemObservable = this.af.database.object('/user/' + this.auth.user.user_id);
-    itemObservable.set({ name: 'new name!', date: new Date() });
-  }
-
-  private generateUUID() {
-    var d = new Date().getTime();
-    if (window.performance && typeof window.performance.now === 'function') {
-      d += performance.now(); // use high-precision timer if available
-    }
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      var r = (d + Math.random() * 16) % 16 | 0;
-      d = Math.floor(d / 16);
-      return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-    return uuid;
+    let id = this.uuid.generate();
+    const itemObservable = this.af.database.object(this._url + '/jobs/' + id);
+    itemObservable.set({ name: 'new job'});
   }
 }
