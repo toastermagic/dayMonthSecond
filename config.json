@@ -1,8 +1,0 @@
-{
-  "Auth0Settings": {
-    "ClientId": "{clientId}",
-    "Domain": "{domain}",
-    "ClientSecret": "{clientSecret}"
-  },
-  "SqliteConnectionString": "Data Source=e:\\data\\dms.db"
-}
