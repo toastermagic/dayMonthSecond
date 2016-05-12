@@ -29,7 +29,8 @@ config.devServer = {
       chunks: false,
       chunkModules: false
   },
-  publicPath: '/'
+  publicPath: '/',
+  outputPath: './wwwroot'
 };
 
 module.exports = config;

@@ -24,3 +24,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
 import 'auth0-lock';
+
+import 'ng2-bootstrap';
+import 'moment';
+

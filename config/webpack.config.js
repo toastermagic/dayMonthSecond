@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
 
@@ -9,7 +10,7 @@ const Auth0Config = require('./auth0.prod.json');
 const helpers = require('./helpers');
 
 const METADATA = {
-  title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass',
+  title: 'dm-rc0',
   baseUrl: '/'
 };
 
@@ -56,6 +57,16 @@ module.exports = {
     extensions: ['', '.js', '.ts'],
     modulesDirectories: ['node_modules'],
     root: path.resolve('./src'),
+
+    alias: {
+      'angular2/core': helpers.root('node_modules/@angular/core/index.js'),
+      'angular2/testing': helpers.root('node_modules/@angular/core/testing.js'),
+      '@angular/testing': helpers.root('node_modules/@angular/core/testing.js'),
+      'angular2/platform/browser': helpers.root('node_modules/@angular/platform-browser/index.js'),
+      'angular2/router': helpers.root('node_modules/@angular/router-deprecated/index.js'),
+      'angular2/http': helpers.root('node_modules/@angular/http/index.js'),
+      'angular2/http/testing': helpers.root('node_modules/@angular/http/testing.js')
+    }
     // alias: {
     //   'Auth0Lock': helpers.root('node_modules/auth0-lock/index.js')      
     // }
@@ -74,7 +85,7 @@ module.exports = {
       {
         test: /node_modules[\\\/]auth0-lock[\\\/].*\.ejs$/,
         loader: 'transform-loader/cacheable?ejsify'
-      }, 
+      },
       {
         test: /\.json$/,
         loader: 'json-loader'
@@ -93,9 +104,9 @@ module.exports = {
         test: /\.html$/,
         loader: 'html-loader'
       },
-      { 
-        test: /\.(png|jpg|woff|woff2|eot|ttf|otf)/, 
-        loader: 'url-loader' 
+      {
+        test: /\.(png|jpg|woff|woff2|eot|ttf|otf)/,
+        loader: 'url-loader'
       }
     ],
 
@@ -105,13 +116,13 @@ module.exports = {
   ts: {
     transpileOnly: true
   },
-  
+
   tslint: {
     emitErrors: true,
     failOnHint: true,
     resourcePath: 'src'
   },
-  
+
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Angular2 Webpack Polyfill Demo',
@@ -127,8 +138,12 @@ module.exports = {
       }
     }),
     new webpack.DefinePlugin({
-      'AUTH0_CLIENTID':  '"' + Auth0Config.ClientId + '"',
-      'AUTH0_DOMAIN': '"' + Auth0Config.Domain + '"'  
-    })
+      'AUTH0_CLIENTID': '"' + Auth0Config.ClientId + '"',
+      'AUTH0_DOMAIN': '"' + Auth0Config.Domain + '"'
+    }),
+    new CopyWebpackPlugin([
+      // Copy directory contents to {output}/to/directory/ 
+      { from: 'node_modules/bootstrap', to: 'node_modules/bootstrap' }
+    ])
   ]
 };

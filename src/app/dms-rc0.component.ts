@@ -31,6 +31,7 @@ export class DmsRc0AppComponent implements OnInit {
 
   ngOnInit() {
     // this.sidebarState = true;
+
     this.router.navigate(['/home']);
   }
 }
