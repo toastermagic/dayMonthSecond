@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var jwt = require('express-jwt');
 var cors = require('cors');
 var http = require('http');
-
+var compression = require('compression');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -36,6 +36,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression());
 
 app.use(express.static(__dirname + '/../wwwroot'));
 
