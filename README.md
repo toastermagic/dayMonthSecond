@@ -1,3 +1,3 @@
 # dayMonthSecond
 
-Application scaffold using aspnetcore rc3 with Auth0 and API authentication using JWT bearer tokens
+Application scaffold using angular 2, Firebase, and authentication using Auth0 (JWT)
