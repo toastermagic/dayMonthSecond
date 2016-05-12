@@ -1,19 +1,29 @@
 <md-card>
-    <md-card-subtitle>Check response</md-card-subtitle>
-    <md-card-title>JWT Token Test</md-card-title>
-    <md-card-content>
-        <p>Authenticate using JWT</p>
-        <span *ngIf="resultTime">{{ resultTime | date:'HH:mm:ss' }}</span>
-        <span *ngIf="failMessage">
-            {{ failMessage }}
-            <md-icon class="fail-icon">close</md-icon>
-        </span>
-        <span *ngIf="userId">
-            {{ userId }}
-            <md-icon class="success-icon">done</md-icon>
-        </span>
+    <md-card-subtitle>you will only see this once</md-card-subtitle>
+    <md-card-title>Get started</md-card-title>
+    <md-card-content class="container">
+        <div class="row">
+            <div class="col-md-3">
+                Do you have any questions?
+            </div>
+            <div class="col-md-1">
+                <md-radio-group [(ngModel)]="questions">
+                    <div>
+                        <md-radio-button [value]="false">no</md-radio-button>
+                    </div>
+                    <div>
+                        <md-radio-button [value]="true">yes</md-radio-button>
+                    </div>
+                </md-radio-group>
+            </div>
+            <div class="col-md-5">
+                <div *ngIf="questions">
+                    Sorry, you are not the type of person we are looking for
+                </div>
+            </div>
+        </div>
     </md-card-content>
     <md-card-actions>
-        <button md-raised-button [disabled]="!checkEnabled" (click)="checkServer()" class="btn btn-success-outline">Check Token</button>
+        <button md-raised-button [disabled]="questions" (click)="create()" class="btn btn-success-outline">Create Account</button>
     </md-card-actions>
 </md-card>

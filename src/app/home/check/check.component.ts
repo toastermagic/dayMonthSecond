@@ -2,45 +2,26 @@ import {Component} from '@angular/core';
 import {JobsService} from '../../shared';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdIcon} from '@angular2-material/icon';
+import {MdRadioButton, MdRadioGroup} from '@angular2-material/radio';
+import {MdRadioDispatcher} from '@angular2-material/radio/radio_dispatcher';
 
 @Component({
   moduleId: 'app/home/check/',
   selector: 'dms-check',
   template: require('./check.component.html'),
   styles: [require('./check.component.scss')],
-  directives: [MdIcon, MD_CARD_DIRECTIVES],
-  providers: [JobsService]
+  directives: [MdIcon, MdRadioGroup, MdRadioButton, MD_CARD_DIRECTIVES],
+  providers: [JobsService, MdRadioDispatcher]
 })
 
 export class CheckComponent {
-  checkEnabled: Boolean = true;
-  checkResult: Boolean = null;
-  userId: string;
-  failMessage: string;
-  resultTime: Date = null;
+  questions: boolean;
+  name: string = 'paul';
+  disableCreate: boolean = true;
 
   constructor(private jobsService: JobsService) {}
 
-  private enableCheck(enabled) { this.checkEnabled = enabled; }
+  create() {
 
-  checkServer() {
-    this.enableCheck(false);
-    this.checkResult = null;
-
-    this.jobsService.getApiResponse().subscribe(
-        response => {
-          this.checkResult = true;
-          this.failMessage = null;
-          this.userId = response.ExternalAuthId;
-          this.resultTime = new Date;
-        },
-        err => {
-          this.checkResult = false;
-          this.failMessage = err;
-          this.userId = null;
-          this.enableCheck(true);
-          this.resultTime = new Date;
-        },
-        () => { this.enableCheck(true); });
   }
 }
