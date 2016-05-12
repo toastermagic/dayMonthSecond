@@ -8,8 +8,8 @@ import {ProfileComponent} from './shared/profile';
 @Component({
   moduleId: 'app/toolbar/shared/logged-in/',
   selector: 'dms-logged-in',
-  template: require<string>('./logged-in.component.html'),
-  styles: [require<string>('./logged-in.component.scss')],
+  template: require('./logged-in.component.html'),
+  styles: [require('./logged-in.component.scss')],
   directives: [ROUTER_DIRECTIVES, MdButton, MdAnchor, MdIcon, ProfileComponent]
 })
 export class LoggedInComponent implements OnInit {

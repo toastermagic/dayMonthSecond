@@ -8,8 +8,8 @@ import {Observable} from 'rxjs';
 @Component({
   moduleId: 'app/home/job-list/',
   selector: 'dms-joblist',
-  template: require<string>('./job-list.component.html'),
-  styles: [require<string>('./job-list.component.scss')],
+  template: require('./job-list.component.html'),
+  styles: [require('./job-list.component.scss')],
   directives: [MdIcon, MD_CARD_DIRECTIVES]
 })
 export class JobListComponent implements OnInit {

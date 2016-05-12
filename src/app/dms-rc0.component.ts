@@ -11,8 +11,8 @@ import {Routes, ROUTER_DIRECTIVES, Router} from '@angular/router';
 @Component({
   moduleId: 'app',
   selector: 'dms-rc0-app',
-  template: require<string>('./dms-rc0.component.html'),
-  styles: [ require<string>('./dms-rc0.component.scss') ],
+  template: require('./dms-rc0.component.html'),
+  styles: [ require('./dms-rc0.component.scss') ],
   directives: [HomeComponent, ToolbarComponent, SidebarComponent, ROUTER_DIRECTIVES],
   providers: []
 })

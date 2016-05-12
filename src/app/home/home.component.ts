@@ -6,8 +6,8 @@ import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 @Component({
   moduleId: 'app/home/',
   selector: 'app-home',
-  template: require<string>('./home.component.html'),
-  styles: [require<string>('./home.component.scss')],
+  template: require('./home.component.html'),
+  styles: [require('./home.component.scss')],
   directives: [CheckComponent, JobListComponent, MD_CARD_DIRECTIVES],
   providers: []
 })

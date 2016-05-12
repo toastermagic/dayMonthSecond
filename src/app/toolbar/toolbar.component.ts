@@ -11,8 +11,8 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 @Component({
   moduleId: 'app/toolbar/',
   selector: 'dms-toolbar',
-  template: require<string>('./toolbar.component.html'),
-  styles: [require<string>('./toolbar.component.scss')],
+  template: require('./toolbar.component.html'),
+  styles: [ require('./toolbar.component.scss')],
   directives: [ROUTER_DIRECTIVES, MdToolbar, MdButton, MdAnchor, MdIcon, LoggedInComponent]
 })
 

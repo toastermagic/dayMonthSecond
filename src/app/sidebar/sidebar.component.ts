@@ -7,8 +7,8 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 @Component({
   moduleId: 'app/sidebar/',
   selector: 'dms-sidebar',
-  template: require<string>('./sidebar.component.html'),
-  styles: [require<string>('./sidebar.component.scss')],
+  template: require('./sidebar.component.html'),
+  styles: [require('./sidebar.component.scss')],
   directives: [MdButton, MdList, MdListItem, MD_SIDENAV_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 

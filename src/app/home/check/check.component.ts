@@ -6,8 +6,8 @@ import {MdIcon} from '@angular2-material/icon';
 @Component({
   moduleId: 'app/home/check/',
   selector: 'dms-check',
-  template: require<string>('./check.component.html'),
-  styles: [require<string>('./check.component.scss')],
+  template: require('./check.component.html'),
+  styles: [require('./check.component.scss')],
   directives: [MdIcon, MD_CARD_DIRECTIVES],
   providers: [JobsService]
 })
