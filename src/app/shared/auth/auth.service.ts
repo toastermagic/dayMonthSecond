@@ -40,6 +40,31 @@ export class AuthService {
     return this.userSource.getValue();
   }
 
+  public signUp() {
+    this.lock.showSignup({},
+      (err: Auth0Error, profile: dmsProfile, auth0token: string) => {
+        localStorage.setItem('id_token', auth0token);
+
+        if (!err) {
+          this
+            .getProfile(auth0token)
+            .flatMap((prof) => {
+              return this.getDelegationToken(prof);
+            })
+            .flatMap((prof) => {
+              return this.firebaseLogin(prof);
+            })
+            .subscribe(
+            (prof: dmsProfile) => {
+              localStorage.setItem('profile', JSON.stringify(prof));
+              this.userSource.next(prof);
+            },
+            (error: any) => this.loginFail(error),
+            () => { console.log('login complete'); });
+        }
+      });
+  }
+
   public login() {
     this.lock.show({
       disableSignupAction: true
@@ -57,7 +82,6 @@ export class AuthService {
           })
           .subscribe(
           (prof: dmsProfile) => {
-            console.log('profile returned', prof);
             localStorage.setItem('profile', JSON.stringify(prof));
             this.userSource.next(prof);
           },

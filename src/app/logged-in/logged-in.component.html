@@ -1,0 +1,5 @@
+<dms-profile #profile [user]="user"></dms-profile>
+<span *ngIf="auth.authenticated() && auth.user">{{ auth.user.nickname }}</span>
+<button *ngIf="user" (click)="profile.show()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+  <img class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" [src]="user.picture" />
+</button>

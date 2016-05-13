@@ -1,25 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
-import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
-import {MdIcon} from '@angular2-material/icon';
 import {AuthService, UUIDService} from '../../shared';
 import {Observable} from 'rxjs';
+import {DmsJob} from '../../shared/models';
+import {JobComponent} from './job';
 
 @Component({
   moduleId: 'app/home/job-list/',
   selector: 'dms-joblist',
   template: require('./job-list.component.html'),
   styles: [require('./job-list.component.scss')],
-  directives: [MdIcon, MD_CARD_DIRECTIVES]
+  directives: [JobComponent]
 })
 export class JobListComponent implements OnInit {
-  jobs: FirebaseListObservable<any[]>;
-  user: FirebaseObjectObservable<any>;
+  jobs: FirebaseListObservable<DmsJob[]>;
 
   connectedMessage: string = 'Unknown';
-  private _url: string;
-  
-  constructor(private af: AngularFire, private auth: AuthService, private uuid: UUIDService) { }
+  private url: string;
+
+  constructor(
+    private af: AngularFire,
+    private auth: AuthService,
+    private uuid: UUIDService) { }
 
   ngOnInit() {
     this.auth.userChange$.subscribe((profile: dmsProfile) => {
@@ -27,32 +29,20 @@ export class JobListComponent implements OnInit {
         // logged out, should route change to home
         return;
       }
-      this._url = '/users/' + profile.user_id;
-      this.getUser(this._url);
-      this.jobs = this.af.database.list(this._url + '/jobs/');
     });
+
+    this.url = '/users/' + this.auth.user.user_id + '/jobs/';
+    this.jobs = this.af.database.list(this.url);
   }
 
-  getUser(url: string) {
-    if (!this.auth.authenticated) {
-      console.log('cannot fetch jobs without auth0 authentication');
-      return;
-    }
+  create() {
+    let newJob = new DmsJob();
+    newJob.created = new Date().getTime();
+    newJob.intervalMinutes = 60;
+    newJob.name = 'New Job';
 
-    if (!this.af.auth) {
-      console.log('cannot fetch jobs without firebase authentication');
-      return;
-    }
-
-    this.af.database.object(url)
-      .subscribe((user) => {
-        this.user = user;
-      });
-  }
-
-  addItem() {
     let id = this.uuid.generate();
-    const itemObservable = this.af.database.object(this._url + '/jobs/' + id);
-    itemObservable.set({ name: 'new job'});
+    const itemObservable = this.af.database.object(this.url + id);
+    itemObservable.set(newJob);
   }
 }

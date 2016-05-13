@@ -1,16 +1,14 @@
 import { Input, Component, OnInit } from '@angular/core';
-import {AuthService} from '../../../shared';
+import {AuthService} from '../shared';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {MdButton, MdAnchor} from '@angular2-material/button';
-import {MdIcon} from '@angular2-material/icon';
-import {ProfileComponent} from './shared/profile';
-
+import {ProfileComponent} from './profile';
+import {MdlUpgradeDirective} from '../shared';
 @Component({
-  moduleId: 'app/toolbar/shared/logged-in/',
+  moduleId: 'app/toolbar/logged-in/',
   selector: 'dms-logged-in',
   template: require('./logged-in.component.html'),
   styles: [require('./logged-in.component.scss')],
-  directives: [ROUTER_DIRECTIVES, MdButton, MdAnchor, MdIcon, ProfileComponent]
+  directives: [ROUTER_DIRECTIVES, MdlUpgradeDirective, ProfileComponent]
 })
 export class LoggedInComponent implements OnInit {
 

@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HomeComponent} from './home';
-import {DashboardComponent} from './dashboard';
-import {ToolbarComponent} from './toolbar';
-import {SidebarComponent} from './sidebar';
-
+import {MdlUpgradeDirective} from './shared';
+import {LoggedInComponent} from './logged-in';
 import {AuthService} from './shared';
 
 import {Routes, ROUTER_DIRECTIVES, Router} from '@angular/router';
@@ -13,25 +11,17 @@ import {Routes, ROUTER_DIRECTIVES, Router} from '@angular/router';
   selector: 'dms-rc0-app',
   template: require('./dms-rc0.component.html'),
   styles: [ require('./dms-rc0.component.scss') ],
-  directives: [HomeComponent, ToolbarComponent, SidebarComponent, ROUTER_DIRECTIVES],
+  directives: [HomeComponent, MdlUpgradeDirective, LoggedInComponent, ROUTER_DIRECTIVES],
   providers: []
 })
 @Routes([
-  {path: '/home', component: HomeComponent},
-  {path: '/dash', component: DashboardComponent},
+  {path: '/home', component: HomeComponent}
 ])
 export class DmsRc0AppComponent implements OnInit {
-  constructor(auth: AuthService, private router: Router) {}
-
-  sidebarState: boolean;
-
-  onOpenSidebar(val: boolean) {
-    this.sidebarState = true;
+  constructor(public auth: AuthService, private router: Router) {
   }
 
   ngOnInit() {
-    // this.sidebarState = true;
-
     this.router.navigate(['/home']);
   }
 }

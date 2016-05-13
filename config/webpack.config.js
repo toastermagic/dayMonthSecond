@@ -66,6 +66,7 @@ module.exports = {
       'angular2/router': helpers.root('node_modules/@angular/router-deprecated/index.js'),
       'angular2/http': helpers.root('node_modules/@angular/http/index.js'),
       'angular2/http/testing': helpers.root('node_modules/@angular/http/testing.js')
+      
     }
     // alias: {
     //   'Auth0Lock': helpers.root('node_modules/auth0-lock/index.js')      
@@ -125,7 +126,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Angular2 Webpack Polyfill Demo',
+      title: 'dms-rc0',
       chunksSortMode: 'none',
       filename: 'index.html',
       cache: true,
@@ -138,6 +139,7 @@ module.exports = {
       }
     }),
     new webpack.DefinePlugin({
+      //  these need to be referenced in typings.d.ts
       'AUTH0_CLIENTID': '"' + Auth0Config.ClientId + '"',
       'AUTH0_DOMAIN': '"' + Auth0Config.Domain + '"'
     }),
