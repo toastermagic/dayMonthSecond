@@ -1,3 +1,4 @@
+<button (click)="create()">create</button>
 <div class="mdl-list" *ngFor="let item of jobs | async">
-  <dms-job [job]="item"></dms-job>
+  <dms-job [job]="item" (onDelete)="onDelete($event)" (onSave)="onSave($event)"></dms-job>
 </div>
