@@ -16,7 +16,6 @@ export class MdlUpgradeDirective implements AfterViewInit {
             console.log('componentHandler is undefined', this.elRef.nativeElement);
             return;
         }
-        console.log('componentHandler upgrading', this.elRef.nativeElement);
         componentHandler.upgradeElement(this.elRef.nativeElement);
     }
 }
