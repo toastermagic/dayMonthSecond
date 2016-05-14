@@ -1,6 +1,6 @@
 import {bootstrap} from '@angular/platform-browser-dynamic';
 import {enableProdMode} from '@angular/core';
-import {AuthService, UUIDService} from './app/shared';
+import {AuthService, UUIDService, DmsHelpers} from './app/shared';
 import {ROUTER_PROVIDERS} from '@angular/router';
 import {AUTH_PROVIDERS} from 'angular2-jwt';
 import {HTTP_PROVIDERS} from '@angular/http';
@@ -25,6 +25,7 @@ bootstrap(DmsRc0AppComponent,
     AUTH_PROVIDERS,
     AuthService,
     UUIDService,
+    DmsHelpers,
     FIREBASE_PROVIDERS,
     defaultFirebase('https://blazing-heat-6719.firebaseio.com'),
     firebaseAuthConfig({
