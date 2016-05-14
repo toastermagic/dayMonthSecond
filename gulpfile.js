@@ -25,7 +25,7 @@ var copyOnly = [
     "./node_modules/ng2-material/dist/MaterialIcons-Regular.woff2"  
 ];
 
-var tsProject = ts.createProject("app/tsconfig.json");
+var tsProject = ts.createProject("src/tsconfig.json");
 
 gulp.task("watch:client", ["build:client"], function () {
     gulp.watch("./app/**/*.css", ["copyCss"]);
@@ -104,3 +104,23 @@ gulp.task("servewatch", ["watch"], function () {
     console.log("serving", serveDir, "on", port);
 });
 
+ 
+gulp.task("ts-babel", function () {
+    var babel = require("gulp-babel");
+    var rename = require("gulp-rename");
+    // Using my existing tsconfig.json file
+
+    var tsProject = ts.createProject('./server/tsconfig.json');
+ 
+    // The `base` part is needed so
+    //  that `dest()` doesnt map folders correctly after rename
+    return gulp.src(["server/**/*.ts", "!server/typings/**/*"], { base: "./" })
+        .pipe(ts(tsProject))
+        .pipe(babel({
+            
+        }, { cwd: 'server' }))
+        .pipe(rename(function (path) {
+            path.extname = ".js";
+        }))
+        .pipe(gulp.dest("."));
+});
