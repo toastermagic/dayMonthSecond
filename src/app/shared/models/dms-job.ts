@@ -1,4 +1,5 @@
 export class DmsJob {
+    id: string;
     name: string;
     created: number;
     lastUpdated: number;
