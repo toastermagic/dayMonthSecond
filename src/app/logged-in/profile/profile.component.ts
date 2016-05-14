@@ -1,5 +1,5 @@
 import {Input, Component, ElementRef} from '@angular/core';
-import {AuthService} from '../../shared';
+import {AuthService, DmsProfile} from '../../shared';
 
 @Component({
   moduleId: 'app/toolbar/shared/logged-in/shared/profile/',
@@ -12,7 +12,7 @@ import {AuthService} from '../../shared';
 
 export class ProfileComponent {
   @Input()
-  user: dmsProfile;
+  user: DmsProfile;
   public userProperties: any[];
   private dialog: any;
 

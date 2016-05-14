@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {tokenNotExpired} from 'angular2-jwt';
 import {Observable, Subject, Subscriber, BehaviorSubject} from 'rxjs';
 import {AuthProviders, AuthMethods, FirebaseAuthState, AngularFire} from 'angularfire2';
+import {DmsProfile} from '../models';
 
 const Auth0Lock: any = require('auth0-lock');
 
@@ -12,7 +13,7 @@ export class AuthService {
   refreshSubscription: any;
   zoneImpl: NgZone;
 
-  userSource = new BehaviorSubject<dmsProfile>(null);
+  userSource = new BehaviorSubject<DmsProfile>(null);
 
   userChange$ = this.userSource.asObservable();
 
@@ -36,13 +37,13 @@ export class AuthService {
     return tokenNotExpired();
   }
 
-  get user(): dmsProfile {
+  get user(): DmsProfile {
     return this.userSource.getValue();
   }
 
   public signUp() {
     this.lock.showSignup({},
-      (err: Auth0Error, profile: dmsProfile, auth0token: string) => {
+      (err: Auth0Error, profile: DmsProfile, auth0token: string) => {
         localStorage.setItem('id_token', auth0token);
 
         if (!err) {
@@ -55,7 +56,7 @@ export class AuthService {
               return this.firebaseLogin(prof);
             })
             .subscribe(
-            (prof: dmsProfile) => {
+            (prof: DmsProfile) => {
               localStorage.setItem('profile', JSON.stringify(prof));
               this.userSource.next(prof);
             },
@@ -68,9 +69,7 @@ export class AuthService {
   public login() {
     this.lock.show({
       disableSignupAction: true
-    }, (err: Auth0Error, profile: dmsProfile, auth0token: string) => {
-      localStorage.setItem('id_token', auth0token);
-
+    }, (err: Auth0Error, profile: DmsProfile, auth0token: string) => {
       if (!err) {
         this
           .getProfile(auth0token)
@@ -81,9 +80,12 @@ export class AuthService {
             return this.firebaseLogin(prof);
           })
           .subscribe(
-          (prof: dmsProfile) => {
-            localStorage.setItem('profile', JSON.stringify(prof));
+          (prof: DmsProfile) => {
             this.userSource.next(prof);
+            localStorage.setItem('profile', JSON.stringify(prof));
+
+            //  do this last, setting this id_token causes an immediate update to 'authenticated'
+            localStorage.setItem('id_token', auth0token);
           },
           (error: any) => this.loginFail(error),
           () => { console.log('login complete'); });
@@ -96,9 +98,9 @@ export class AuthService {
     this.logout();
   }
 
-  private getProfile(token: string): Observable<dmsProfile> {
-    return new Observable<dmsProfile>((sub: Subscriber<dmsProfile>) => {
-      this.lock.getProfile(token, (err: Auth0Error, profile: dmsProfile) => {
+  private getProfile(token: string): Observable<DmsProfile> {
+    return new Observable<DmsProfile>((sub: Subscriber<DmsProfile>) => {
+      this.lock.getProfile(token, (err: Auth0Error, profile: DmsProfile) => {
         if (err || !profile) {
           sub.error(`auth0 could not get profile: ${err}`);
         }
@@ -108,8 +110,8 @@ export class AuthService {
     });
   }
 
-  private getDelegationToken(profile: dmsProfile): Observable<dmsProfile> {
-    return new Observable<dmsProfile>((sub: Subscriber<dmsProfile>) => {
+  private getDelegationToken(profile: DmsProfile): Observable<DmsProfile> {
+    return new Observable<DmsProfile>((sub: Subscriber<DmsProfile>) => {
       this.lock.getClient().getDelegationToken({
         target: '0DkTCPKzFbJPEow18W1eT2yzT3VtJJTw',
         id_token: profile.authid_token,
@@ -125,8 +127,8 @@ export class AuthService {
     });
   };
 
-  private firebaseLogin(profile: dmsProfile): Observable<dmsProfile> {
-    return new Observable<dmsProfile>((sub: Subscriber<dmsProfile>) => {
+  private firebaseLogin(profile: DmsProfile): Observable<DmsProfile> {
+    return new Observable<DmsProfile>((sub: Subscriber<DmsProfile>) => {
       this.af.auth.login({ token: profile.firebase_token.id_token },
         {
           provider: AuthProviders.Custom,

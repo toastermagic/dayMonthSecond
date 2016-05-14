@@ -2,7 +2,8 @@ import { Input, Component, OnInit } from '@angular/core';
 import {AuthService} from '../shared';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 import {ProfileComponent} from './profile';
-import {MdlUpgradeDirective} from '../shared';
+import {MdlUpgradeDirective, DmsProfile} from '../shared';
+
 @Component({
   moduleId: 'app/toolbar/logged-in/',
   selector: 'dms-logged-in',
@@ -13,7 +14,7 @@ import {MdlUpgradeDirective} from '../shared';
 export class LoggedInComponent implements OnInit {
 
   @Input()
-  user: dmsProfile;
+  user: DmsProfile;
 
   constructor(private auth: AuthService) {}
 
