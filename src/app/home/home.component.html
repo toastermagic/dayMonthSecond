@@ -1,2 +1,2 @@
 <!--<dms-get-started></dms-get-started>-->
-<dms-joblist></dms-joblist>
+<dms-joblist *ngIf="auth.authenticated()" [user]="auth.user"></dms-joblist>

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GetStartedComponent} from './get-started';
 import {JobListComponent} from './job-list';
+import {AuthService} from '../shared';
 
 @Component({
   moduleId: 'app/home/',
@@ -12,5 +13,7 @@ import {JobListComponent} from './job-list';
 })
 
 export class HomeComponent implements OnInit {
+  constructor(public auth: AuthService) {}
+  
   ngOnInit() { }
 }
