@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {HomeComponent} from './home';
 import {MdlUpgradeDirective} from './shared';
 import {LoggedInComponent} from './logged-in';
-import {AuthService} from './shared';
+import {AuthService, DmsProfile} from './shared';
 
 import {Routes, ROUTER_DIRECTIVES, Router} from '@angular/router';
 
@@ -18,10 +18,18 @@ import {Routes, ROUTER_DIRECTIVES, Router} from '@angular/router';
   {path: '/home', component: HomeComponent}
 ])
 export class DmsRc0AppComponent implements OnInit {
-  constructor(public auth: AuthService, private router: Router) {
+  constructor(
+      public auth: AuthService,
+      private router: Router,
+      private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.router.navigate(['/home']);
+
+    this.auth.userChange$.subscribe((user: DmsProfile) => {
+      console.log('new user, detecting changes', user ? user.nickname : null);
+      this.cd.detectChanges();
+    });
   }
 }
