@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
-import {AuthService, UUIDService} from '../../shared';
 import {Observable} from 'rxjs';
-import {DmsJob} from '../../shared/models';
+import {AuthService, UUIDService, DmsJob, MdlUpgradeDirective} from '../../shared';
 import {JobComponent} from './job';
 
 @Component({
@@ -10,7 +9,7 @@ import {JobComponent} from './job';
   selector: 'dms-joblist',
   template: require('./job-list.component.html'),
   styles: [require('./job-list.component.scss')],
-  directives: [JobComponent]
+  directives: [JobComponent, MdlUpgradeDirective]
 })
 export class JobListComponent implements OnInit {
   jobs: FirebaseListObservable<DmsJob[]>;
