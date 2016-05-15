@@ -14,6 +14,23 @@ export class DmsHelpers {
         return copy;
     }
 
+    sanitiseProfile(objIn: Object) {
+        let copy = {};
+
+        Object.keys(objIn).forEach((key: string) => {
+            if (key.includes('token') ||
+                key.includes('firebase') ||
+                key.includes('_id') ||
+                key === 'identities' ||
+                key === 'clientID') {
+                return;
+            }
+            copy[key] = objIn[key];
+        });
+
+        return copy;
+    }
+
     generateUUID() {
         var d = new Date().getTime();
         if (window.performance && typeof window.performance.now === 'function') {

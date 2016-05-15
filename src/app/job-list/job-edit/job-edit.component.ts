@@ -1,5 +1,5 @@
 import { Input, Output, EventEmitter, Component, OnInit } from '@angular/core';
-import { DmsJob, MdlUpgradeDirective } from '../../../shared';
+import { DmsJob, MdlUpgradeDirective } from '../../shared';
 
 @Component({
     moduleId: 'app/home/job-list/job-edit',

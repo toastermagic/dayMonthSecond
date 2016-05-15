@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AuthService} from '../../shared';
+import {AuthService, DmsHelpers, MdlUpgradeDirective} from '../../shared';
 import {AngularFire} from 'angularfire2';
 
 @Component({
@@ -7,7 +7,7 @@ import {AngularFire} from 'angularfire2';
   selector: 'dms-get-started',
   template: require('./get-started.component.html'),
   styles: [require('./get-started.component.scss')],
-  directives: [],
+  directives: [MdlUpgradeDirective],
   providers: [AuthService]
 })
 
@@ -16,11 +16,19 @@ export class GetStartedComponent {
   name: string = 'paul';
   disableCreate: boolean = true;
 
-  constructor(private auth: AuthService, private af: AngularFire) {}
+  constructor(private auth: AuthService,
+              private af: AngularFire,
+              private helpers: DmsHelpers) {}
 
   create() {
     let url = '/users/' + this.auth.user.user_id;
-    const itemObservable = this.af.database.object(url + '/jobs/');
-    itemObservable.set({ name: this.auth.user.nickname});
+    console.log('setting new user as', url);
+    const itemObservable = this.af.database.object(url);
+
+    let sanitised = this.helpers.sanitiseProfile(this.auth.user);
+
+    itemObservable.set({
+      profile: sanitised
+    });
   }
 }

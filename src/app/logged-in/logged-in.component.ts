@@ -1,7 +1,6 @@
 import { Input, Component, OnInit } from '@angular/core';
 import {AuthService} from '../shared';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {ProfileComponent} from './profile';
 import {MdlUpgradeDirective, DmsProfile} from '../shared';
 
 @Component({
@@ -9,7 +8,7 @@ import {MdlUpgradeDirective, DmsProfile} from '../shared';
   selector: 'dms-logged-in',
   template: require('./logged-in.component.html'),
   styles: [require('./logged-in.component.scss')],
-  directives: [ROUTER_DIRECTIVES, MdlUpgradeDirective, ProfileComponent]
+  directives: [ROUTER_DIRECTIVES, MdlUpgradeDirective]
 })
 export class LoggedInComponent implements OnInit {
 

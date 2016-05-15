@@ -1,5 +1,5 @@
 import {Input, Component, ElementRef} from '@angular/core';
-import {AuthService, DmsProfile} from '../../shared';
+import {AuthService, DmsProfile} from '../shared';
 
 @Component({
   moduleId: 'app/toolbar/shared/logged-in/shared/profile/',
@@ -18,7 +18,7 @@ export class ProfileComponent {
 
   get userPictureStyle() {
     return  {
-      'background': 'url(' + this.user.picture + ') center / cover',
+      'background': 'url(' + this.auth.user.picture + ') center / cover',
       'height': '150px'
     };
   }
@@ -27,19 +27,7 @@ export class ProfileComponent {
   }
 
   getUserProperties() {
-    this.userProperties = Object.keys(this.user);
+    this.userProperties = Object.keys(this.auth.user);
     return this.userProperties;
-  }
-
-  close() {
-    this.dialog.close();
-  }
-
-  show() {
-    // if (!this.dialog.showModal) {
-    //   dialogPolyfill.registerDialog(dialog);
-    // }
-    this.dialog = this.elRef.nativeElement.firstElementChild;
-    this.dialog.showModal();
   }
 }

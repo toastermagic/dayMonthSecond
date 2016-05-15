@@ -1,6 +1,6 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
-import {AuthService, DmsHelpers, DmsProfile, DmsJob, MdlUpgradeDirective} from '../../shared';
+import {AuthService, DmsHelpers, DmsJob, MdlUpgradeDirective} from '../shared';
 import {JobDisplayComponent} from './job-display';
 import {JobEditComponent} from './job-edit';
 
@@ -12,12 +12,8 @@ import {JobEditComponent} from './job-edit';
   directives: [JobDisplayComponent, JobEditComponent, MdlUpgradeDirective]
 })
 export class JobListComponent implements OnInit {
+
   jobs: FirebaseListObservable<DmsJob[]>;
-
-  @Input() user: DmsProfile;
-
-  connectedMessage: string = 'Unknown';
-  private url: string;
 
   constructor(
     private af: AngularFire,
@@ -25,17 +21,30 @@ export class JobListComponent implements OnInit {
     private helpers: DmsHelpers) { }
 
   ngOnInit() {
-    if (!this.user) {
+    if (!this.auth.user) {
       console.error('showing job list, but no user!');
       return;
     }
-    this.url = '/users/' + this.user.user_id + '/jobs/';
-    this.jobs = this.af.database.list(this.url);
+    this.jobs = this.af.database.list('/users/' + this.auth.user.user_id + '/jobs/');
+  }
+
+  create() {
+    let newJob = new DmsJob();
+    newJob.created = new Date().getTime();
+    newJob.name = 'New Job';
+
+    console.log('creating job', newJob);
+    this.jobs.push(newJob);
   }
 
   onSave(job: DmsJob) {
     console.log('updating job', job);
     this.jobs.update(job.$key, this.helpers.suppressKey(job));
+  }
+
+  onEdit(job: DmsJob) {
+    console.log('editing job', job);
+    // this.jobs.remove(jobId);
   }
 
   onDelete(jobId: string) {
@@ -45,15 +54,5 @@ export class JobListComponent implements OnInit {
     }
     console.log('deleting job', jobId);
     this.jobs.remove(jobId);
-  }
-
-  create() {
-    let newJob = new DmsJob();
-    newJob.created = new Date().getTime();
-    newJob.intervalMinutes = 60;
-    newJob.name = 'New Job';
-
-    console.log('creating job', newJob);
-    this.jobs.push(newJob);
   }
 }
