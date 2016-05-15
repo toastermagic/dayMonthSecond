@@ -1,14 +1,15 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import {AuthService, DmsHelpers, DmsProfile, DmsJob, MdlUpgradeDirective} from '../../shared';
-import {JobComponent} from './job';
+import {JobDisplayComponent} from './job-display';
+import {JobEditComponent} from './job-edit';
 
 @Component({
   moduleId: 'app/home/job-list/',
   selector: 'dms-joblist',
   template: require('./job-list.component.html'),
   styles: [require('./job-list.component.scss')],
-  directives: [JobComponent, MdlUpgradeDirective]
+  directives: [JobDisplayComponent, JobEditComponent, MdlUpgradeDirective]
 })
 export class JobListComponent implements OnInit {
   jobs: FirebaseListObservable<DmsJob[]>;

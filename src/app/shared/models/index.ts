@@ -1,2 +1,2 @@
-export * from './dms-job';
-export * from './dms-profile';
+export {DmsJob} from './dms-job';
+export {DmsProfile} from './dms-profile';

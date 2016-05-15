@@ -1,0 +1,14 @@
+<div mdl-upgrade class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--4-col mdl-cell--middle">
+            Url:
+        </div>
+        <div class="mdl-cell mdl-cell--8-col mdl-cell--middle">
+            {{ job.$key }}
+        </div>
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+        <button (click)="save()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Save</button>
+        <button (click)="delete()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete</button>
+    </div>
+</div>
