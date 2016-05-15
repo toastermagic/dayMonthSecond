@@ -1,0 +1,46 @@
+{
+  "content": [
+    "wwwroot",
+    "node_modules"
+  ],
+  "buildOptions": {
+    "preserveCompilationContext": true,
+    "emitEntryPoint": true,
+    "debugType": "portable"
+  },
+  "dependencies": {
+    "Microsoft.AspNetCore.Authentication": "1.0.0-rc3-*",
+    "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-rc3-*",
+    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0-rc3-*",
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc3-*",
+    "Microsoft.AspNetCore.Mvc": "1.0.0-rc3-*",
+    "Microsoft.AspNetCore.Hosting": "1.0.0-rc3-*",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-rc3-*",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0-rc3-*",
+    "Microsoft.Extensions.Configuration": "1.0.0-rc3-*",
+    "Microsoft.Extensions.Logging.Console": "1.0.0-rc3-*",
+    "Microsoft.Extensions.Options": "1.0.0-rc3-*",
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0-rc3-*",
+    "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0-rc3-*",
+    "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0-rc3-*",
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.0-rc2"
+    }
+  },
+  "userSecretsId": "dayMonthSecond",
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dnxcore50",
+        "portable-net45+win8+wp8"
+      ]
+    }
+  },
+  "scripts": {
+    "postpublish": "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%"
+  },
+  "commands": {
+    "web": "Microsoft.AspNetCore.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000"
+  }
+}

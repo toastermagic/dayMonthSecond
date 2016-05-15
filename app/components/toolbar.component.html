@@ -1,0 +1,28 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <button md-button class="md-icon-button" aria-label="Settings" (click)="clicked('Menu')">
+            <md-icon class="material-icons">menu</md-icon>
+        </button>
+        <h2>
+            <span>day.month.second</span>
+        </h2>
+        <span flex></span>
+        
+        <span *ngIf="auth.authenticated()">
+            {{ auth.user.nickname }}
+        </span>
+        
+        <button *ngIf="!auth.authenticated()" md-raised-button class="md-raised md-button md-primary" (click)="auth.login()">
+            <md-icon class="material-icons">person</md-icon>Login
+        </button>
+        
+        <button *ngIf="auth.authenticated()" md-raised-button class="md-raised md-button md-primary" (click)="auth.logout()">
+            <md-icon class="material-icons">person</md-icon>Logout
+        </button>
+
+        <button *ngIf="auth.authenticated()" md-raised-button class="md-raised md-button md-primary" (click)="onSettings($event)">
+            <md-icon class="material-icons">settings</md-icon>Settings
+            <dialog-settings></dialog-settings>
+        </button>
+    </div>
+</md-toolbar>
