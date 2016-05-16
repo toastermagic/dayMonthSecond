@@ -5,7 +5,7 @@ const config = require('./webpack.config.js');
 const SERVER_HOST = '0.0.0.0';
 const SERVER_PORT = '4200';
 
-config.devtool = 'eval-source-map';
+config.devtool = 'inline-source-map';
 config.plugins.push(
   new webpack.optimize.CommonsChunkPlugin({name:'vendor', filename:'vendor.js', minChunks: Infinity})
 );
