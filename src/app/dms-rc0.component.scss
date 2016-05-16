@@ -29,8 +29,8 @@ html, body {
 .demo-layout .demo-header .mdl-textfield .mdl-textfield__expandable-holder {
   bottom: 19px;
 }
-.demo-layout .mdl-layout__header .mdl-layout__drawer-button {
-  color: rgba(0, 0, 0, 0.54);
+.demo-layout .mdl-layout__header .mdl-layout-title .mdl-layout__drawer-button {
+  color: rgba(0, 0, 0, 0.54) !important;
 }
 .mdl-layout__drawer .avatar {
   margin-bottom: 16px;
@@ -221,4 +221,13 @@ _:-ms-input-placeholder, :root .demo-graph {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.mdl-layout__header-row {
+    background: url(/images/vangvieng.jpg) top / cover;
+    height: 150px;
+}
+
+.mdl-layout__header {
+  color: rgba(0, 0, 0, 0.54);
 }
