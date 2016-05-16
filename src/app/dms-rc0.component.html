@@ -1,41 +1,28 @@
-<div mdl-upgrade class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
-  <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+<div mdl-upgrade class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
+  <header class="demo-header mdl-layout__header mdl-layout__header--transparent  mdl-layout__header--scroll">
     <div class="mdl-layout__header-row">
       <span class="mdl-layout-title">dms-rc0</span>
       <div class="mdl-layout-spacer"></div>
-      <button (click)="auth.signUp()" *ngIf="!auth.authenticated()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+      <button (click)="auth.signUp()" *ngIf="!auth.authenticated()" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect">
         Sign Up
       </button>
-      <button (click)="auth.login()" *ngIf="!auth.authenticated()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+      <button (click)="auth.login()" *ngIf="!auth.authenticated()" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect">
         Login
     </button>
-      <dms-logged-in *ngIf="auth.authenticated()" [user]="auth.user"></dms-logged-in>
     </div>
   </header>
-  <div mdl-upgrade class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+  <div mdl-upgrade id="sideBar" class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
     <header>
-      <!--<img src="images/logo.png" class="demo-avatar">-->
-      <!--<div class="demo-avatar-dropdown">
-        <span>hello@example.com</span>
-        <div class="mdl-layout-spacer"></div>
-        <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">arrow_drop_down</i>
-        <span class="visuallyhidden">Accounts</span>
-      </button>
-        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-          <li class="mdl-menu__item">hello@example.com</li>
-          <li class="mdl-menu__item">info@example.com</li>
-          <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
-        </ul>
-      </div>-->
+      <dms-logged-in *ngIf="auth.authenticated()" [user]="auth.user"></dms-logged-in>
     </header>
     <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-      <a *ngIf="auth.authenticated()" class="mdl-navigation__link" [routerLink]='["home"]'><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-      <a *ngIf="auth.authenticated()" class="mdl-navigation__link" [routerLink]='["jobs"]'><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Jobs</a>
-      <a *ngIf="auth.authenticated()" class="mdl-navigation__link" [routerLink]='["profile"]'><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">face</i>Profile</a>
+      <a close-drawer *ngIf="auth.authenticated()" class="mdl-navigation__link" [routerLink]='["home"]'><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+      <a close-drawer *ngIf="auth.authenticated()" class="mdl-navigation__link" [routerLink]='["jobs"]'><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Jobs</a>
+      <a close-drawer *ngIf="auth.authenticated()" class="mdl-navigation__link" [routerLink]='["profile"]'><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">face</i>Profile</a>
       <div class="mdl-layout-spacer"></div>
-      <a *ngIf="auth.authenticated()" class="mdl-navigation__link" (click)="auth.logout()"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">exit_to_app</i>Logout</a>
-      <a *ngIf="!auth.authenticated()" class="mdl-navigation__link" (click)="auth.login()"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">exit_to_app</i>Login</a>
+      <a close-drawer *ngIf="auth.authenticated()" class="mdl-navigation__link" (click)="auth.logout()"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">exit_to_app</i>Logout</a>
+      <a close-drawer *ngIf="!auth.authenticated()" class="mdl-navigation__link" (click)="auth.login()"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">exit_to_app</i>Login</a>
+      <button close-drawer>close</button>
     </nav>
   </div>
   <main class="mdl-layout__content">

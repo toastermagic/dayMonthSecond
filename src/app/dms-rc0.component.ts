@@ -1,10 +1,9 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {HomeComponent} from './home';
-import {MdlUpgradeDirective} from './shared';
 import {LoggedInComponent} from './logged-in';
 import {JobListComponent} from './job-list';
 import {ProfileComponent} from './profile';
-import {AuthService, DmsProfile} from './shared';
+import {AuthService, DmsProfile, MdlUpgradeDirective, CloseDrawerDirective} from './shared';
 
 import {Routes, ROUTER_DIRECTIVES, Router} from '@angular/router';
 
@@ -14,7 +13,7 @@ import {Routes, ROUTER_DIRECTIVES, Router} from '@angular/router';
   template: require('./dms-rc0.component.html'),
   styles: [ require('./dms-rc0.component.scss') ],
   directives: [HomeComponent, JobListComponent, LoggedInComponent, ProfileComponent,
-              MdlUpgradeDirective, ROUTER_DIRECTIVES],
+              MdlUpgradeDirective, CloseDrawerDirective, ROUTER_DIRECTIVES],
   providers: []
 })
 @Routes([
@@ -23,6 +22,7 @@ import {Routes, ROUTER_DIRECTIVES, Router} from '@angular/router';
   {path: '/profile', component: ProfileComponent}
 ])
 export class DmsRc0AppComponent implements OnInit {
+
   constructor(
       public auth: AuthService,
       private router: Router,
