@@ -1,9 +1,17 @@
-<div *ngIf="!jobs || jobs.length == 0">
-  You have no jobs
-</div>
-
-<button mdl-upgrade (click)="create()" class="mdl-button mdl-js-button mdl-button-raised mdl-js-ripple-effect">create</button>
-
-<div class="mdl-list" *ngFor="let item of jobs | async">
-  <dms-job-display [job]="item" (onDelete)="onDelete($event)" (onSave)="onSave($event)"></dms-job-display>
+<div mdl-upgrade class="mdl-layout  mdl-js-layout mdl-layout--fixed-header" *ngIf="auth.authenticated()">
+  <header class="mdl-layout__header mdl-layout__header--transparent  mdl-layout__header--scroll">
+    <div class="mdl-layout__header-row">
+      <span class="mdl-layout__title">Jobs</span>
+      <span class="mdl-layout-spacer"></span>
+      <button (click)="create()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent">
+        <i class="material-icons" role="presentation">add</i>
+      </button>
+    </div>
+  </header>
+  <main class="mdl-layout__content">
+    <div mdl-upgrade *ngIf="loading | async" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+    <div class="mdl-list" *ngFor="let item of jobs | async">
+      <dms-job-display [job]="item" (onDelete)="onDelete($event)" (onSave)="onSave($event)"></dms-job-display>
+    </div>
+  </main>
 </div>

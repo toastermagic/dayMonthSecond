@@ -3,6 +3,7 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import {AuthService, DmsHelpers, DmsJob, MdlUpgradeDirective} from '../shared';
 import {JobDisplayComponent} from './job-display';
 import {JobEditComponent} from './job-edit';
+import {Observable} from 'rxjs';
 
 @Component({
   moduleId: 'app/home/job-list/',
@@ -20,12 +21,15 @@ export class JobListComponent implements OnInit {
     private auth: AuthService,
     private helpers: DmsHelpers) { }
 
+  loading: Observable<boolean>;
+
   ngOnInit() {
     if (!this.auth.user) {
       console.error('showing job list, but no user!');
       return;
     }
     this.jobs = this.af.database.list('/users/' + this.auth.user.user_id + '/jobs/');
+    this.loading = this.jobs.mapTo(false).startWith(true);
   }
 
   create() {
