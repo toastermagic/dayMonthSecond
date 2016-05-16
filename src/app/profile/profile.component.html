@@ -1,14 +1,23 @@
-<div *ngIf="auth.authenticated()">
-    <h4 class="mdl-dialog__title" [ngStyle]="userPictureStyle"></h4>
-    <div class="mdl-dialog__content">
-        <div class="mdl-grid" style="overflow-x:hidden; overflow-y: auto;">
-            <div class="mdl-cell mdl-cell--4-col" style="white-space:nowrap; overflow-x:hidden;" *ngFor="let item of getUserProperties()">
-                <span class="key-name">{{item}}:</span>
-                <span class="key-value">{{auth.user[item]}}</span>
+<div mdl-upgrade class="mdl-layout  mdl-js-layout mdl-layout--fixed-header" *ngIf="auth.authenticated()">
+    <header class="mdl-layout__header mdl-layout__header--transparent  mdl-layout__header--scroll">
+        <div class="mdl-layout__header-row" [ngStyle]="userPictureStyle"></div>
+    </header>
+    <main class="mdl-layout__content">
+        <div class="mdl-grid" style="overflow-y: auto;">
+            <div class="mdl-cell mdl-cell--4-col" *ngFor="let item of getUserProperties()">
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--1-col-phone" style="white-space:nowrap; overflow-x:hidden;">
+                        <span class="key-name">{{item}}:</span>
+                    </div>
+                    <div class="mdl-cell mdl-cell--8-col mdl-cell--3-col-phone" style="word-wrap: break-word;">
+                        <span class="key-value">{{auth.user[item] | json}}</span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button" (click)="auth.logout()">Logout</button>
-    </div>
+        <div class="mdl-layout-spacer"></div>
+    </main>
+    <footer class="mdl-layout__footer">
+        <button mdl-upgrade type="button" class="mdl-button mdl-button--colored mdl-js-ripple-effect" (click)="auth.logout()">Logout</button>
+    </footer>
 </div>

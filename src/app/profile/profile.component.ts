@@ -1,12 +1,12 @@
 import {Input, Component, ElementRef} from '@angular/core';
-import {AuthService, DmsProfile} from '../shared';
+import {AuthService, DmsProfile, MdlUpgradeDirective} from '../shared';
 
 @Component({
   moduleId: 'app/toolbar/shared/logged-in/shared/profile/',
   selector: 'dms-profile',
   template: require('./profile.component.html'),
   styles: [require('./profile.component.scss')],
-  directives: [],
+  directives: [MdlUpgradeDirective],
   pipes: []
 })
 
@@ -14,7 +14,6 @@ export class ProfileComponent {
   @Input()
   user: DmsProfile;
   public userProperties: any[];
-  private dialog: any;
 
   get userPictureStyle() {
     return  {

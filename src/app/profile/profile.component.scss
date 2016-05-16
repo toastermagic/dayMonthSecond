@@ -1,13 +1,24 @@
-mdl-dialog__title {
-    height:120px;
-}
-
 .key-name {
     opacity: .54;
     font-size: smaller;
 }
 
-mdl-dialog{
-    width:100%;   
+@media (max-width: 479px)
+{
+    .mdl-cell {
+        margin: 0px 8px;
+    }     
 }
- 
+
+.mdl-layout__content {
+    display: flex;
+}
+
+.fullHeight {
+    display: -webkit-flex; 
+    display: flex; 
+}
+
+// .fullHeight > .mdl-cell {
+//     display: block;
+// }
