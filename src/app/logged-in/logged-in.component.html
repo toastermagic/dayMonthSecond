@@ -1,7 +1,10 @@
-<div *ngIf="user">
-  <dms-profile #profile [user]="user"></dms-profile>
-  <span>{{ user.nickname }}</span>
-  <button (click)="profile.show()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-  <img class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" [src]="user.picture" />
-</button>
+<div style="display:flex; align-items: center; margin: 12px;" *ngIf="user">
+  <div style="margin: auto">
+    <span>{{ user.nickname }}</span>
+    <span>
+      <a [routerLink]="['profile']" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+        <img class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" [src]="user.picture" />
+      </a>
+    </span>
+  </div>
 </div>
