@@ -12,7 +12,7 @@ config.plugins.push(
 config.devServer = {
   quiet: false,
   noInfo: false,
-  contentBase: './wwwroot',
+  contentBase: './src',
   historyApiFallback: true,
   host: SERVER_HOST,
   port: SERVER_PORT,
