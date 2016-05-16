@@ -6,11 +6,11 @@
   "scripts": {
     "lint": "tslint \"src/**/*.ts\"",
     "format": "clang-format -i -style=file --glob=src/**/*.ts",
-    "build": "del wwwroot && webpack --config config/webpack.prod.js",
+    "build": "rimraf wwwroot && webpack --config config/webpack.prod.js",
     "start": "webpack-dev-server --config config/webpack.dev.js --inline",
     "typings": "typings",
     "postinstall": "typings install",
-    "server": "babel server/app.ts server/firebase-service/*.ts -o compiled.js"
+    "server": "gulp ts-babel && node server/app.js"
   },
   "dependencies": {
     "@angular/common": "2.0.0-rc.1",
@@ -60,6 +60,7 @@
     "morgan": "^1.7.0",
     "node-sass": "^3.7.0",
     "raw-loader": "^0.5.1",
+    "rimraf": "^2.5.2",
     "sass-loader": "^3.2.0",
     "scss-loader": "0.0.1",
     "serve-favicon": "^2.3.0",
