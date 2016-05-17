@@ -1,3 +1,3 @@
 # dms-rc0
 
-Application scaffold using aspnetcore rc3 for api, Auth0 for authentication and webpack for client
+Application scaffold using express/typescript server and webpack/material-design-lite for client, authentication by Auth0, and storage by Firebase
